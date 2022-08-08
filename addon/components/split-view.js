@@ -121,7 +121,12 @@ export default Component.extend({
   },
 
   _setStyle() {
-    const style = this.get('element').style;
+    const style = this.get('element')?.style;
+
+    if (!style) {
+      return;
+    }
+
     if (this.get('isRoot')) {
       // let the DOM know our minimum size
       const isVertical = this.get('isVertical');
