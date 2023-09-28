@@ -6,7 +6,7 @@ import { A } from '@ember/array';
 import { next, scheduleOnce } from '@ember/runloop'
 import SplitChild from './split-child';
 import splitViewLayout from 'ember-split-view/templates/components/split-view';
-
+import $ from 'jquery';
 
 /**
  * This class represents a view that is split either vertically or horizontally.
@@ -98,7 +98,7 @@ export default Component.extend({
       });
       scheduleOnce('afterRender', this, () => {
         // must do this in afterRender so that the parent has calculated its width and height
-        const element = this.$();
+        const element = $(this.element);
         this.set('width', element.width());
         this.set('height', element.height());
       });
@@ -114,7 +114,7 @@ export default Component.extend({
   },
 
   didResize() {
-    const element = this.$();
+    const element = $(this.element);
     this.set('width', element.width());
     this.set('height', element.height());
     this.constrainSplit();
@@ -231,7 +231,7 @@ export default Component.extend({
 
     let position = 0;
 
-    const offset = this.$().offset();
+    const offset = $(this.element).offset();
     if (this.get('isVertical')) {
       position = event.pageX - offset.left;
     } else {
